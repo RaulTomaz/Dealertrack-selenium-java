@@ -2,31 +2,27 @@ package stepDefinitions;
 
 import core.DriverFactory;
 import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
-import org.junit.BeforeClass;
+import utils.DataProvider;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class Hooks extends DriverFactory {
-
-    @BeforeClass
-    public static void EnvironmentConfig(){
-        System.setProperty("webdriver.driver.chrome", "driver/chromedriver.exe");
-    }
+    DataProvider dataProvider = new DataProvider();
 
     @Before
     public void InstantiateDriver() {
+        setChromeDriverProperty();
         driverConfig();
+        dataProvider.collectJsonValues();
+        getDriver().get("https://www.google.com.br");
+        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @After
     public void eliminarDriver() {
-
-    }
-
-    @AfterStep
-    public void tirarScreenshot() {
-
+        getDriver().quit();
     }
 
 }
