@@ -12,7 +12,7 @@ public class DataProvider {
 
     public void collectJsonValues(){
         try{
-            FileReader jsonFile = new FileReader("src/test/java/utils/massa-testes.json");
+            FileReader jsonFile = new FileReader("src/test/java/utils/test-data.json");
             jsonObject = jsonParser.parse(jsonFile).getAsJsonObject();
 
         }catch(FileNotFoundException notFound)
